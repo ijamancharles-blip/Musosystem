@@ -7,7 +7,7 @@ Projet web développé en PHP avec une base de données MySQL.
 
 📌 Description
 
-Finexe Système est une application web PHP nécessitant un serveur local ou distant pour fonctionner.
+MUSOSystème est une application web PHP de Gestion Mutuelle nécessitant un serveur local ou distant pour fonctionner.
 Ce dépôt contient le code source ainsi que les instructions nécessaires pour l’installation et l’exécution du projet.
 
 ⚙️ Prérequis
