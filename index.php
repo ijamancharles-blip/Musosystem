@@ -433,7 +433,9 @@
             .mobile-menu-btn {
                 display: block;
             }
-
+            .hero h1 {
+                font-size: 1.5rem;
+            }
             .hero-btns {
                 flex-direction: column;
                 align-items: center;
@@ -473,7 +475,7 @@
     <!-- Section Hero -->
     <section id="accueil" class="hero">
         <div class="container">
-            <h1>Transformez Votre Gestion Financière avec <br> MUSO SYSTEM</h1>
+            <h1>Transformez Votre Gestion Financière avec <br> MUSO</h1>
             <p>La plateforme intuitive pour un contrôle total de vos membres, cotisations, prêts et finances. Simplifiez, optimisez, prospérez.</p>
             
             <div class="hero-btns">
@@ -634,7 +636,7 @@
             </div>
             
             <div class="copyright">
-                &copy; 2023 MUSO SYSTEM. Tous droits réservés.
+                &copy; 2026 MUSO SYSTEM. Tous droits réservés. developpé par <a href="https://samuelalectine.com/" style="color: white; text-decoration: underline;">Samuel Alectine</a>
             </div>
         </div>
     </footer>

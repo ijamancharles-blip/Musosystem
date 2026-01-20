@@ -74,37 +74,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' ) {
 
 // ==================== PLAN YO DISPONIB ====================
 $plans = [
-    'basic_mois' => [
-        'name' => 'Plan Basique Mois',
-        'price' => '1,500 Gdes',
-        'period' => '/mwa',
-        'icon' => 'fa-star',
-        'color' => '#3498db',
-        'features' => ['Gestion cotisation', 'Dashboard cotisation', 'Gestion membre', 'Profil']
-    ],
+    
     'premium_mois' => [
         'name' => 'Plan Premium Mois',
-        'price' => '3,000 Gdes',
+        'price' => '2,500 Gdes',
         'period' => '/mois',
         'icon' => 'fa-crown',
         'color' => '#f39c12',
         'features' => ['Dashboard', 'Gestion membre', 'Gestion cotisation', 'Gestion finance', 'Rapports avancée', 'Gestion des prets','Gestion de profil' ,'Et autre']
     ],
-    'basic_ans' => [
-        'name' => 'Plan Basique Ans',
-        'price' => '15,000 Gdes',
-        'period' => '/ans',
-        'icon' => 'fa-star',
-        'color' => '#3498db',
-        'features' => ['Gestion cotisation', 'Dashboard cotisation', 'Gestion membre', 'Profil']
-    ],
     'premium_ans' => [
         'name' => 'Plan Premium Ans',
-        'price' => '35,000 Gdes',
+        'price' => '25,000 Gdes',
         'period' => '/ans',
         'icon' => 'fa-crown',
         'color' => '#f39c12',
-        'features' => ['Tout nan Basik', 'Ajoute 100 membre', 'Sipò 24/7', 'Rapò avanse', 'Priyorite']
+        'features' => ['Dashboard', 'Gestion membre', 'Gestion cotisation', 'Gestion finance', 'Rapports avancée', 'Gestion des prets','Gestion de profil','Imprimer des rapports en temps reel' ,'Et autre']
     ],
 ];
 ?>
@@ -114,7 +99,9 @@ $plans = [
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MUSO Abònman</title>
+    <title>MUSO Abonnement</title>
+    <link rel="icon" href="./Assets/images/mus" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -138,7 +125,7 @@ $plans = [
         
         /* Header */
         .header {
-            background: linear-gradient(to right, #015807ff, #4a6491);
+            background: linear-gradient(to right, rgb(5, 1, 69), #4a6491);
             color: white;
             padding: 25px;
             border-radius: 15px;
@@ -152,6 +139,8 @@ $plans = [
         .header-content h1 {
             font-size: 2.2rem;
             margin-bottom: 10px;
+            text-transform: uppercase;
+            font-weight: bold;
         
         }
         
@@ -197,7 +186,12 @@ $plans = [
             color: white;
             border-left: 6px solid #c0392b;
         }
-        
+        #kontak{
+            color: rgb(2, 2, 98);
+            font-style: italic;
+            text-align: center;
+
+        }
         /* Main Content */
         .main-content {
             display: grid;
@@ -509,11 +503,33 @@ $plans = [
                 text-align: center;
                 gap: 15px;
             }
+            .plans-section h2 {
+                font-size: 1.3rem;
+            }
+
+            .header-content h1 {
+                font-size: 1.7rem;
+                text-transform: uppercase;
+                font-weight: bold
+            }
             
             .plan-price {
                 text-align: center;
+                
             }
-            
+            #kontak{
+                text-align: left;
+            }
+            .plan-name {
+                font-size: 1.3rem;
+            }
+
+            .price {
+                font-size: 1.5rem;
+            }
+            .form-section h2 {
+                font-size: 1.3rem;
+            }
             .history-table {
                 display: block;
                 overflow-x: auto;
@@ -527,8 +543,7 @@ $plans = [
         <div class="header">
             <div class="header-content">
                 <h1>Page Abonnement</h1>
-                <h4>Numero Moncash: 34941969</h4>
-                <h4>Nom: Camilove Landie Dieudonné</h>
+                
             </div>
             <div class="user-info">
                 <strong><i class="fas fa-user"></i> <?php echo htmlspecialchars($user_name ?? ''); ?></strong>
@@ -557,7 +572,7 @@ $plans = [
         <div class="main-content">
             <!-- Left: Plans -->
             <div class="plans-section">
-                <h2><i class="fas fa-crown"></i> Plan Abònman Disponib</h2>
+                <h2><i class="fas fa-crown"></i> Plan Abonnement Disponible</h2>
                 <div class="plans-container">
                     <?php foreach ($plans as $key => $plan): ?>
                     <div class="plan-card" data-plan="<?php echo $key; ?>">
@@ -588,13 +603,14 @@ $plans = [
             
             <!-- Right: Form -->
             <div class="form-section">
-                <h2><i class="fas fa-credit-card"></i> Fè Peman Ou</h2>
+                <h2><i class="fas fa-credit-card"></i> Effectuez votre paiement</h2>
                 
                 <div id="selected-plan-display" class="selected-plan-display">
                     <p><strong><i class="fas fa-check-circle"></i> Plan choisi:</strong> <span id="display-plan-name"></span></p>
-                    <p><strong><i class="fas fa-money-bill-wave"></i> Pri:</strong> <span id="display-plan-price"></span></p>
+                    <p><strong><i class="fas fa-money-bill-wave"></i> Prix:</strong> <span id="display-plan-price"></span></p>
                     <p><strong><i class="fas fa-money-bill-wave"></i> Numero Moncash: 34941969 </strong> <span id="display-plan-price"></span></p>
                     <p><strong><i class="fas fa-money-bill-wave"></i> Nom: Camilove Landie Dieudonné</strong> <span id="display-plan-price"></span></p>
+                    <p id="kontak">Contacter nous sur Whatsapp au 32211443 si vous avez des difficultés à payer un abonnement directement <span id="kontak"></span></p>
                 </div>
                 
                 <form method="POST" id="subscription-form">
@@ -602,17 +618,17 @@ $plans = [
                     
                     <div class="form-group">
                         <label for="transaction_number">
-                            <i class="fas fa-receipt"></i> Nimewo Transaksyon
+                            <i class="fas fa-receipt"></i> Numero Transaction
                         </label>
                         <input type="text" 
                                id="transaction_number" 
                                name="transaction_number" 
                                value="<?php echo isset($_POST['transaction_number']) ? htmlspecialchars($_POST['transaction_number']) : ''; ?>"
-                               placeholder="Egzanp: TXN: 0026599399304" 
+                               placeholder="Exemple: TXN: 0026599399304" 
                                required
                                maxlength="50">
                         <small class="help-text">
-                            Antre nimewo transaksyon ki sou resi MonCash ou
+                            Entrez le numero de transaction Moncash que vous avez reçu après le paiement. Assurez-vous qu'il contient au moins 12 caractères.
                         </small>
                     </div>
                     
@@ -621,7 +637,7 @@ $plans = [
                             class="submit-btn" 
                             id="submit-btn" 
                             >
-                        <i class="fas fa-paper-plane"></i> Soumèt Peman
+                        <i class="fas fa-paper-plane"></i> Soumettre
                     </button>
                 </form>
             </div>
@@ -643,21 +659,15 @@ $plans = [
             const transactionInput = document.getElementById('transaction_number');
             
             const plans = {
-                'basic_mois': {
-                    name: 'Plan Basique Mois',
-                    price: '1,500 Gdes/mwa'
-                },
+                
                 'premium_mois': {
                     name: 'Plan Premium Mois',
-                    price: '3,000 Gdes/mois'
+                    price: '2,500 Gdes/mois'
                 },
-                'basic_ans': {
-                    name: 'Plan Basique Ans',
-                    price: '15,000 Gdes/ans'
-                },
+               
                 'premium_ans': {
                     name: 'Plan Premium Ans',
-                    price: '35,000 Gdes/ans'
+                    price: '25,000 Gdes/ans'
                 },
                 
             };

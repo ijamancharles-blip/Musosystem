@@ -115,7 +115,8 @@ $dernieres_transactions = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MUZZO - Dashboard</title>
+    <title>MUSO - Dashboard</title>
+    <link rel="icon" href="./Assets/images/mus" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -147,6 +148,44 @@ $dernieres_transactions = $stmt->fetchAll(PDO::FETCH_ASSOC);
             padding: 0;
         }
         
+        /* Hamburger Menu Button */
+        .hamburger {
+            display: none;
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1100;
+            cursor: pointer;
+            width: 30px;
+            height: 24px;
+            flex-direction: column;
+            justify-content: space-between;
+            background: transparent;
+            border: none;
+            padding: 0;
+        }
+        
+        .hamburger span {
+            display: block;
+            height: 4px;
+            width: 100%;
+            background-color: var(--primary);
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+        
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(6px, 6px);
+        }
+        
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+        
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(8px, -8px);
+        }
+        
         .sidebar {
             background: linear-gradient(135deg, var(--primary) 0%, var(--primary) 100%);
             color: white;
@@ -158,6 +197,7 @@ $dernieres_transactions = $stmt->fetchAll(PDO::FETCH_ASSOC);
             width: 250px;
             z-index: 1000;
             box-shadow: 3px 0 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
         }
         
         .user-info {
@@ -235,11 +275,23 @@ $dernieres_transactions = $stmt->fetchAll(PDO::FETCH_ASSOC);
             text-align: center;
         }
         
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+        
         .main-content {
             margin-left: 250px;
             padding: 30px;
             min-height: 100vh;
             width: calc(100% - 250px);
+            transition: margin-left 0.3s ease;
         }
         
         .card {
@@ -257,7 +309,7 @@ $dernieres_transactions = $stmt->fetchAll(PDO::FETCH_ASSOC);
         
         .stat-card {
             text-align: center;
-            padding:  20px;
+            padding: 20px;
             border-radius: 15px;
             color: white;
             height: 100%;
@@ -343,19 +395,50 @@ $dernieres_transactions = $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
         
         /* Responsive Design */
+        @media (max-width: 992px) {
+            .main-content {
+                padding: 25px;
+            }
+            
+            .page-title {
+                font-size: 1.8rem;
+                margin-top: 20px;
+            }
+        }
+        
         @media (max-width: 768px) {
+            body{
+                padding: 0 15px;
+                box-sizing: border-box
+            }
+            .hamburger {
+                display: flex;
+            }
+            
             .sidebar {
-                width: 100%;
-                height: auto;
-                position: relative;
-                min-height: auto;
+                transform: translateX(-100%);
+                width: 280px;
+            }
+            
+            .sidebar.active {
+                transform: translateX(0);
+            }
+            
+            .sidebar-overlay.active {
+                display: block;
             }
             
             .main-content {
                 margin-left: 0;
                 width: 100%;
-                padding: 20px;
+                padding: 20px 0;
+               
             }
+            footer {
+        margin-left: calc(-15px);   /* konpanse body padding */
+        margin-right: calc(-15px);
+        width: calc(100% + 30px);   /* 100% + padding body sou toulede bò */
+    }
             
             .stat-card .number {
                 font-size: 2rem;
@@ -367,6 +450,7 @@ $dernieres_transactions = $stmt->fetchAll(PDO::FETCH_ASSOC);
             
             .page-title {
                 font-size: 1.5rem;
+                margin-top: 10px;
             }
         }
         
@@ -386,6 +470,17 @@ $dernieres_transactions = $stmt->fetchAll(PDO::FETCH_ASSOC);
             .card-header {
                 padding: 15px 20px;
             }
+            
+            .hamburger {
+                top: 15px;
+                right: 15px;
+                width: 28px;
+                height: 22px;
+            }
+            
+            .hamburger span {
+                height: 3px;
+            }
         }
         
         /* Animation pour les cartes de statistiques */
@@ -404,20 +499,43 @@ $dernieres_transactions = $stmt->fetchAll(PDO::FETCH_ASSOC);
             animation: fadeInUp 0.6s ease-out;
         }
         
+        /* Animation pour sidebar */
+        @keyframes slideIn {
+            from {
+                transform: translateX(-100%);
+            }
+            to {
+                transform: translateX(0);
+            }
+        }
         
+        .sidebar.active {
+            animation: slideIn 0.3s ease-out;
+        }
     </style>
 </head>
 <body>
+    <!-- Hamburger Menu Button -->
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+    
+    <!-- Overlay for mobile menu -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+    
     <div class="container-fluid">
         <div class="row">
             <!-- Sidebar -->
-            <div class="sidebar">
+            <div class="sidebar" id="sidebar">
                 <div class="user-info">
                     <!-- Logo Image -->
                     <div class="logo-container">
                         <img src="Assets/images/declinaison 2 muso.png" alt="Logo MUSO" class="logo-img">
                     </div>
                     <p class="mb-0"><?php echo htmlspecialchars($nom_sol); ?></p>
+                    <small><?php echo htmlspecialchars($user_email); ?></small>
                 </div>
                 <ul class="nav flex-column mt-3">
                     <li class="nav-item">
@@ -428,6 +546,11 @@ $dernieres_transactions = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <li class="nav-item">
                         <a class="nav-link" href="membres.php">
                             <i class="fas fa-users"></i> Membres
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="cotisations.php">
+                            <i class="fas fa-hand-holding-usd"></i> Cotisations
                         </a>
                     </li>
                     <li class="nav-item">
@@ -452,17 +575,16 @@ $dernieres_transactions = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     </li>
                     <li class="nav-item">
                         <a class="nav-link logout" 
-   href="logout.php" 
-   onclick="return confirm('Êtes-vous sûr de vouloir vous déconnecter ?');">
-    <i class="fas fa-sign-out-alt"></i> Déconnexion
-</a>
-
+                           href="logout.php" 
+                           onclick="return confirm('Êtes-vous sûr de vouloir vous déconnecter ?');">
+                            <i class="fas fa-sign-out-alt"></i> Déconnexion
+                        </a>
                     </li>
                 </ul>
             </div>
 
             <!-- Main Content -->
-            <div class="main-content">
+            <div class="main-content" id="mainContent">
                 <h2 class="page-title">Tableau de Bord - <?php echo htmlspecialchars($nom_sol); ?></h2>
                 
                 <!-- Statistics Cards -->
@@ -568,8 +690,53 @@ $dernieres_transactions = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // Graphique des entrées
+        // Mobile menu functionality
         document.addEventListener('DOMContentLoaded', function() {
+            const hamburger = document.getElementById('hamburger');
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebarOverlay');
+            const mainContent = document.getElementById('mainContent');
+            
+            function toggleSidebar() {
+                hamburger.classList.toggle('active');
+                sidebar.classList.toggle('active');
+                overlay.classList.toggle('active');
+                document.body.style.overflow = sidebar.classList.contains('active') ? 'hidden' : '';
+            }
+            
+            function closeSidebar() {
+                hamburger.classList.remove('active');
+                sidebar.classList.remove('active');
+                overlay.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+            
+            // Toggle sidebar on hamburger click
+            hamburger.addEventListener('click', toggleSidebar);
+            
+            // Close sidebar on overlay click
+            overlay.addEventListener('click', closeSidebar);
+            
+            // Close sidebar when clicking on a menu link (for mobile)
+            const navLinks = document.querySelectorAll('.sidebar .nav-link');
+            navLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    if (window.innerWidth <= 768) {
+                        closeSidebar();
+                    }
+                });
+            });
+            
+            // Close sidebar when window is resized to desktop
+            function handleResize() {
+                if (window.innerWidth > 768) {
+                    closeSidebar();
+                }
+            }
+            
+            window.addEventListener('resize', handleResize);
+            
+            // Graphique des entrées
             const ctxEntrees = document.getElementById('entreesChart');
             if (ctxEntrees) {
                 const entreesChart = new Chart(ctxEntrees, {

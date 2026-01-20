@@ -53,7 +53,7 @@ $stmt = $conn->prepare($query);
 $stmt->execute();
 $utilisateurs = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-$title = "FINEX SYSTEM - Admin Dashboard";
+$title = "MUSO - Admin Dashboard";
 ?>
 
 <!DOCTYPE html>
@@ -66,8 +66,8 @@ $title = "FINEX SYSTEM - Admin Dashboard";
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --primary: #041e64ff;
-            --secondary: #3498db;
+            --primary: #005653;
+            --secondary: #01dc82;
             --success: #2ecc71;
             --danger: #e74c3c;
             --warning: #f39c12;
@@ -81,7 +81,7 @@ $title = "FINEX SYSTEM - Admin Dashboard";
         }
         
         .navbar-admin {
-            background: linear-gradient(135deg, #041e64ff 0%, #000000ff 100%);
+            background: linear-gradient(135deg, rgb(1, 16, 58) 0%, rgb(1, 97, 44) 100%);
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
         
@@ -221,7 +221,7 @@ $title = "FINEX SYSTEM - Admin Dashboard";
     <nav class="navbar navbar-expand-lg navbar-admin navbar-dark">
         <div class="container-fluid">
             <a class="navbar-brand" href="admin_dashboard.php">
-                <i class="fas fa-crown me-2"></i>FINEX ADMIN
+                <i class="fas fa-crown me-2"></i>MUSO ADMIN
             </a>
             
             <div class="navbar-nav ms-auto">
@@ -250,10 +250,10 @@ $title = "FINEX SYSTEM - Admin Dashboard";
     <div class="container-fluid main-content">
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h2 class="page-title">
-                <i class="fas fa-tachometer-alt me-2"></i>Tableau de Bord Administrateur
+                <i class="fas fa-tachometer-alt me-2"></i>Tableau de Bord Admin
             </h2>
             <div class="badge bg-warning text-dark fs-6 px-3 py-2">
-                <i class="fas fa-shield-alt me-1"></i>Super Administrateur
+                <i class="fas fa-shield-alt me-1"></i>Super Admin
             </div>
         </div>
 
@@ -315,6 +315,7 @@ $title = "FINEX SYSTEM - Admin Dashboard";
                 </div>
             </div>
         </div>
+        <div class="table-responsive">
         <div class="card-table">
                         <table class="table table-hover">
                             <th>id</th>
@@ -337,7 +338,7 @@ $title = "FINEX SYSTEM - Admin Dashboard";
                             </tbody>
                         </table>
                     </div>
-
+</div>
         <div class="row">
             <!-- Gestion des Utilisateurs -->
             <div class="col-12">

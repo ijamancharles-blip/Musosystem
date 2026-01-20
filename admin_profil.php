@@ -136,13 +136,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['change_password'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FINEX SYSTEM - Profil Administrateur</title>
+    <title>MUSO - Profil Administrateur</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --primary: #041e64ff;
-            --secondary: #3498db;
+            --primary: #005653;
+            --secondary: #01dc82;
             --success: #2ecc71;
             --danger: #e74c3c;
             --warning: #f39c12;
@@ -156,7 +156,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['change_password'])) {
         }
         
         .navbar-admin {
-            background: linear-gradient(135deg, #041e64ff 0%, #3498db 100%);
+            background: linear-gradient(135deg, rgb(0, 7, 25) 0%, #056044 100%);
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
         
@@ -179,7 +179,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['change_password'])) {
         }
         
         .card-header {
-            background: linear-gradient(135deg, #041e64ff 0%, #3498db 100%);
+            background: linear-gradient(135deg, rgb(0, 7, 25) 0%, #000000 100%);
             color: white;
             border-radius: 15px 15px 0 0 !important;
             padding: 20px 25px;
@@ -269,7 +269,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['change_password'])) {
     <nav class="navbar navbar-expand-lg navbar-admin navbar-dark">
         <div class="container-fluid">
             <a class="navbar-brand" href="admin_dashboard.php">
-                <i class="fas fa-crown me-2"></i>FINEX ADMIN
+                <i class="fas fa-crown me-2"></i>MUSO ADMIN
             </a>
             
             <div class="navbar-nav ms-auto">
@@ -300,14 +300,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['change_password'])) {
         <div class="d-flex justify-content-between align-items-center mb-4">
             <div>
                 <a href="admin_dashboard.php" class="btn btn-return">
-                    <i class="fas fa-arrow-left me-2"></i>Retour au Dashboard
+                    <i class="fas fa-arrow-left me-2"></i>Retour 
                 </a>
             </div>
             <h2 class="page-title">
-                <i class="fas fa-user-shield me-2"></i>Profil Administrateur
+                <i class="fas fa-user-shield me-2"></i>Profil Admin
             </h2>
             <div class="badge bg-warning text-dark fs-6 px-3 py-2">
-                <i class="fas fa-shield-alt me-1"></i>Super Administrateur
+                <i class="fas fa-shield-alt me-1"></i>Super Admin
             </div>
         </div>
 
